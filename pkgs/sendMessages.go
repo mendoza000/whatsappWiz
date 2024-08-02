@@ -9,6 +9,7 @@ import (
 	waProto "go.mau.fi/whatsmeow/binary/proto"
 	"go.mau.fi/whatsmeow/types"
 	"os"
+	"whatsappWiz/data"
 )
 
 func SendMessage(client *whatsmeow.Client, groupJID string, name string) {
@@ -31,13 +32,13 @@ func SendMessage(client *whatsmeow.Client, groupJID string, name string) {
 	imageMsg := &waProto.ImageMessage{
 		Caption: proto.String(
 			"*Disponibles cuentas premium sin caidas 🔥*" +
-				"\n\n - *Netflix original:* 2.99$ " +
-				"\n - *HBO Max:* 1.99$ " +
-				"\n - *Disney Plus:* 1.49$" +
-				"\n - *Star Plus:* 0.99$ " +
-				"\n - *Spotify:* desde 1.99$ " +
-				"\n - *Prime video:* 1.49$" +
-				"\n - *Crunchyroll:* 1.99$ " +
+				"\n\n - *Netflix original:* $ 2.99" +
+				"\n - *HBO Max:* $ 1.99" +
+				"\n - *Disney Plus:* $ 2.49" +
+				"\n - *Spotify:* desde $ 2.49" +
+				"\n - *Prime video:* $ 1.49" +
+				"\n - *Crunchyroll:* $ 1.99" +
+				"\n - *Youtube Premium:* desde $ 2.49" +
 				"\n\n😉 Aceptamos *Bolivares, Binance, Paypal, Zinli, " +
 				"Bancolombia y efectivo* " +
 				"\n\n🦇 *Siguenos en instagram para no perderte de nada!" +
@@ -61,6 +62,8 @@ func SendMessage(client *whatsmeow.Client, groupJID string, name string) {
 	})
 	if err != nil {
 		fmt.Println("Error al enviar el mensaje en el grupo " + name + " con el JID " + groupJID)
+		SendMessageToLog(client, data.GroupLog().JID, data.GroupLog().Name,
+			"🤨🚩 *El mensaje no se pudo enviar en:* "+name)
 		return
 	}
 }
